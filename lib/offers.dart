@@ -1,62 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'notifier/dataNotifier.dart';
 class Offers extends StatefulWidget {
-  const Offers({Key? key}) : super(key: key);
 
   @override
   _OffersState createState() => _OffersState();
 }
 
 class _OffersState extends State<Offers> {
-  late double width,height;
+   double width,height;
   @override
   Widget build(BuildContext context) {
     width=MediaQuery.of(context).size.width;
     height=MediaQuery.of(context).size.height;
-    return Container(
-      height: height-100,
-      width: width,
-      color: Color(0xFFf5f5f7),
-      child: SingleChildScrollView(
+    return Consumer<DataNotifier>(
+      builder:(ctx,dn,child)=> Container(
+        height: height,
+        width: width,
+        color: Color(0xFFf5f5f7),
         child: Column(
           children: [
             SizedBox(height: 50,),
-            Container(
-              height: 50,
-              width: width*0.85,
-              child: Row(
-                children: [
-                  Text("offers for you",style: TextStyle(fontSize: 14,color: Colors.grey),),
-                  Spacer(),
-                  Text("view all",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Color(0xFF7A7A7B)),),
-                  Icon(Icons.keyboard_arrow_right_rounded,color: Colors.amber,)
-                ],
+            Text("${dn.categories.length}"),
+            Text("${dn.data.length}"),
+            Text("${dn.transacts.length}"),
+            Text("${dn.backgroundImages.length}"),
+            Expanded(
+              flex: 1,
+              child: ListView.builder(
+                itemCount: dn.categories.length,
+                itemBuilder: (ctx,i){
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("${dn.categories[i].name} _ ${dn.categories[i].icon} _ ${dn.categories[i].slug} "),
+                  );
+                },
               ),
             ),
-            Container(
-              width: width*(0.85),
-              height: 240,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-
-                  Container(
-                    width: width*0.85,
-                    child: Image.asset("assets/icons/tablets.jpg",fit: BoxFit.cover,height: 160,),
-                  ),
-                  SizedBox(height: 10,),
-                  Text("    Apollo Pharmacy",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Color(0xFF464648)),),
-                  SizedBox(height: 5,),
-                  Text("       Upto 15% off* at Apollo Pharmacy",style: TextStyle(fontSize: 12,color: Colors.grey),),
-
-                ],
+            Expanded(
+              flex: 1,
+              child: ListView.builder(
+                itemCount: dn.data.length,
+                itemBuilder: (ctx,i){
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("${dn.data[i].title} _ ${dn.data[i].items.length} _ ${dn.data[i].type} "),
+                  );
+                },
               ),
             ),
-
+            Expanded(
+              flex: 1,
+              child: ListView.builder(
+                itemCount: dn.transacts.length,
+                itemBuilder: (ctx,i){
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("${dn.transacts[i].name} _ ${dn.transacts[i].slug} _ ${dn.transacts[i].id}  _ ${dn.transacts[i].labelSeller} "),
+                  );
+                },
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: ListView.builder(
+                itemCount: dn.backgroundImages.length,
+                itemBuilder: (ctx,i){
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("${dn.backgroundImages[i].title}  ${dn.backgroundImages[i].image}  "),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

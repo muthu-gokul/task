@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 class RecentTrans extends StatefulWidget {
-  const RecentTrans({Key? key}) : super(key: key);
 
   @override
   _RecentTransState createState() => _RecentTransState();
 }
 
 class _RecentTransState extends State<RecentTrans> {
-  late double width,height;
+   double width,height;
   @override
   Widget build(BuildContext context) {
     width=MediaQuery.of(context).size.width;

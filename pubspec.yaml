@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.11.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -35,7 +35,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_svg:
-
+  http:
+  provider:
+  shimmer:
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -74,6 +76,34 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: QM
+      fonts:
+        - asset: fonts/Quicksand-Medium.ttf
+    - family: QB
+      fonts:
+        - asset: fonts/Quicksand-Bold.ttf
+    - family: QL
+      fonts:
+        - asset: fonts/Quicksand-Light.ttf
+    - family: QR
+      fonts:
+        - asset: fonts/Quicksand-Regular.ttf
+    - family: QSB
+      fonts:
+        - asset: fonts/Quicksand-SemiBold.ttf
+    - family: Sofia
+      fonts:
+        - asset: fonts/Sofia.ttf
+    - family: RR
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+    - family: RB
+      fonts:
+        - asset: fonts/Roboto-Bold.ttf
+    - family: RM
+      fonts:
+        - asset: fonts/Roboto-Medium.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
