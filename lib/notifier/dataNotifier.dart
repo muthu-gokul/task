@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:task/ApiManager.dart';
+import 'package:task/constants/constant.dart';
 import 'package:task/model/homeModel.dart';
 
 class DataNotifier extends ChangeNotifier{
@@ -13,9 +15,12 @@ class DataNotifier extends ChangeNotifier{
   List<Transact> transacts=[];
   List<BackgroundImages> backgroundImages=[];
 
+  PageController bgController;
+  int bgIndex=0;
+
   Future<dynamic> initialDbHit(BuildContext context) async{
+    bgController=PageController(initialPage: 0);
     data.clear();
-   // updateIsLoad(true);
     await ApiManager().ApiCallGetInvoke({},context).then((value) {
         if(value !=null){
           var parsed=json.decode(value);
@@ -24,22 +29,22 @@ class DataNotifier extends ChangeNotifier{
           data=data1.data;
           transacts=data1.transacts;
           backgroundImages=data1.backgroundImages;
-      //    updateIsLoad(false);
+          bgSlider();
          notifyListeners();
         }
-        else{
-        //  updateIsLoad(false);
-        }
-
     });
   }
 
-  bool isLoad=false;
-  updateIsLoad(bool value){
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      isLoad=value;
-      notifyListeners();
-    });
 
+  bgSlider(){
+    Timer.periodic(Duration(seconds: 2), (_){
+      if(bgIndex<backgroundImages.length){
+        bgIndex++;
+      }
+      else{
+        bgIndex=0;
+      }
+      bgController.animateToPage(bgIndex, duration: animeDuration, curve: animeCurve);
+    });
   }
 }

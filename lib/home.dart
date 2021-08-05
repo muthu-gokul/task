@@ -31,11 +31,11 @@ class _HomeState extends State<Home> {
     return Consumer<DataNotifier>(
       builder:(ctx,dn,child)=> Stack(
         children: [
-          Container(
+         dn.data.isEmpty?buildMovieShimmer(): Container(
             height: height+50,
             width: width,
             color: Color(0xFFf5f5f7),
-            child:dn.data.isEmpty?Container(): SingleChildScrollView(
+            child: SingleChildScrollView(
               child: Column(
                 children: [
                   Container(
@@ -48,6 +48,7 @@ class _HomeState extends State<Home> {
                           height: 250,
                           width: width,
                           child: PageView(
+                            controller: dn.bgController,
                             children: [
                               for(int i=0;i<dn.backgroundImages.length;i++)
                                 Image.network("${dn.backgroundImages[i].image}",fit: BoxFit.cover,
@@ -488,111 +489,150 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          dn.data.isEmpty?Container(
-              width: width,
-              height: height,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-              padding: EdgeInsets.only(top: 20),
-              child:Expanded(
-                child: Shimmer.fromColors(
-                  baseColor: Colors.grey[300],
-                  highlightColor: Colors.grey[100],
-                  enabled: true,
-                  child: ListView.builder(
-                    itemBuilder: (_, __) => Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            height: 180,
-                            width: width*0.55,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: width*0.55,
-                                  height: 120,
-
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                SizedBox(height: 5,),
-                                Container(
-                                  width: width*0.45,
-                                  height: 8.0,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(height: 5,),
-                                Container(
-                                  width: width*0.45,
-                                  height: 8.0,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(height: 5,),
-                                Container(
-                                  width: 40.0,
-                                  height: 8.0,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(width: 20,),
-                          Container(
-                            height: 180,
-                            width: width*0.4,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: width*0.55,
-                                  height: 120,
-
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                SizedBox(height: 5,),
-                                Container(
-                                  width: width*0.45,
-                                  height: 8.0,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(height: 5,),
-                                Container(
-                                  width: width*0.45,
-                                  height: 8.0,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(height: 5,),
-                                Container(
-                                  width: 40.0,
-                                  height: 8.0,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ),
-                          ),
-
-
-                        ],
-                      ),
-                    ),
-                    itemCount: 3,
-                  ),
-                ),
-              ),
-           ):Container()
         ],
       ),
     );
   }
 
+   Widget buildMovieShimmer() =>
+       Container(
+         width: width,
+         height: height,
+         clipBehavior: Clip.antiAlias,
+         decoration: BoxDecoration(
+           color: Colors.white,
+         ),
+         padding: EdgeInsets.only(top: 20),
+         child:ListView.builder(
+           itemCount: 3,
+           itemBuilder: (_,__){
+             return Shimmer.fromColors(
+               baseColor: Colors.grey[300],
+               highlightColor: Colors.grey[100],
+               period: Duration(seconds: 2),
+               child: Padding(
+                 padding: const EdgeInsets.only(bottom: 8.0),
+                 child: Row(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: <Widget>[
+                     Container(
+                       height: 180,
+                       width: width*0.55,
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           Container(
+                             width: width*0.55,
+                             height: 120,
+
+                             decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(20),
+                               color: Colors.white,
+                             ),
+                           ),
+                           SizedBox(height: 5,),
+                           Container(
+                             width: width*0.45,
+                             height: 8.0,
+                             color: Colors.white,
+                           ),
+                           SizedBox(height: 5,),
+                           Container(
+                             width: width*0.45,
+                             height: 8.0,
+                             color: Colors.white,
+                           ),
+                           SizedBox(height: 5,),
+                           Container(
+                             width: 40.0,
+                             height: 8.0,
+                             color: Colors.white,
+                           ),
+                         ],
+                       ),
+                     ),
+                     SizedBox(width: 20,),
+                     Container(
+                       height: 180,
+                       width: width*0.4,
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           Container(
+                             width: width*0.55,
+                             height: 120,
+
+                             decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(20),
+                               color: Colors.white,
+                             ),
+                           ),
+                           SizedBox(height: 5,),
+                           Container(
+                             width: width*0.45,
+                             height: 8.0,
+                             color: Colors.white,
+                           ),
+                           SizedBox(height: 5,),
+                           Container(
+                             width: width*0.45,
+                             height: 8.0,
+                             color: Colors.white,
+                           ),
+                           SizedBox(height: 5,),
+                           Container(
+                             width: 40.0,
+                             height: 8.0,
+                             color: Colors.white,
+                           ),
+                         ],
+                       ),
+                     ),
+
+
+                   ],
+                 ),
+               ),
+             );
+           },
+         ),
+       );
+}
+
+
+
+
+
+class CustomWidget extends StatelessWidget {
+
+  final double width;
+  final double height;
+  final ShapeBorder shapeBorder;
+
+  const CustomWidget.rectangular({
+    this.width = double.infinity,
+     this.height
+  }): this.shapeBorder = const RoundedRectangleBorder();
+
+  const CustomWidget.circular({
+    this.width = double.infinity,
+     this.height,
+    this.shapeBorder = const CircleBorder()
+  });
+
+  @override
+  Widget build(BuildContext context)  => Shimmer.fromColors(
+    baseColor: Colors.red,
+    highlightColor: Colors.grey[300],
+    period: Duration(seconds: 2),
+    child: Container(
+      width: width,
+      height: height,
+      decoration: ShapeDecoration(
+        color: Colors.grey[400],
+        shape: shapeBorder,
+
+      ),
+    ),
+  );
 }

@@ -38,10 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
           statusBarColor: Colors.transparent
       ),
       child: Scaffold(
-        body: Home(),
-        //menu==0?Home():
-       /*  menu==1?Offers():
-        Settings(),*/
+        body:
+        //Home(),
+        menu==0?Home():
+         menu==1?Offers():
+        Settings(),
         bottomNavigationBar: Container(
           height: 70,
           width: width,
