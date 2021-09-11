@@ -5,6 +5,7 @@ import 'package:task/constants/constant.dart';
 import 'package:task/home.dart';
 import 'package:task/notifier/dataNotifier.dart';
 import 'package:task/offers.dart';
+import 'package:task/recenttrans.dart';
 import 'package:task/settings.dart';
 class HomeScreen extends StatefulWidget {
 
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body:
         //Home(),
         menu==0?Home():
-         menu==1?Offers():
+         menu==1?RecentTrans():
         Settings(),
         bottomNavigationBar: Container(
           height: 70,
